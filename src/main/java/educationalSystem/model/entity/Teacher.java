@@ -15,11 +15,10 @@ import java.time.LocalDate;
 
 public class Teacher {
 
-        private String name;
-        private String brand;
-        private LocalDate manDate;
-        private String color;
-        private String plate;
+        private int id;
+        private int teacherCode;
+        private String lesson;
+        private String userId ;
 
 
         @Override

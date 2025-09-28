@@ -15,8 +15,9 @@ CREATE TABLE USERS
 );
 
 CREATE SEQUENCE teacher_seq START WITH 1 INCREMENT BY 1;
-CREATE TABLE TEACHERS
+CREATE TABLE Teachers
 (
+    id         number primary key,
     teacher_code NUMBER PRIMARY KEY,
     user_id NUMBER UNIQUE NOT NULL,
     lesson NVARCHAR2(50),
