@@ -17,8 +17,8 @@ public class Teacher {
 
         private int id;
         private int teacherCode;
-        private String lesson;
-        private String userId ;
+        private Lesson lesson;
+        private int userId ;
 
 
         @Override

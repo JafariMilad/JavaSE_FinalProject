@@ -20,8 +20,9 @@ CREATE TABLE Teachers
     id         number primary key,
     teacher_code NUMBER PRIMARY KEY,
     user_id NUMBER UNIQUE NOT NULL,
-    lesson NVARCHAR2(50),
-    CONSTRAINT fk_teacher_user FOREIGN KEY (user_id) REFERENCES USERS (id)
+    lesson_code NUMBER UNIQUE NOT NULL,
+    CONSTRAINT fk_teacher_user FOREIGN KEY (user_id) REFERENCES USERS (id),
+        CONSTRAINT lesson_code FOREIGN KEY (lesson_code) REFERENCES COURSES (lesson_code)
 );
 
 CREATE SEQUENCE student_seq START WITH 1 INCREMENT BY 1;
@@ -177,7 +178,11 @@ CREATE TABLE ATTENDANCE
     attendance_id NUMBER PRIMARY KEY,
     student_code NUMBER NOT NULL,
     session_id NUMBER NOT NULL,
+    kelass_code  NUMBER NOT NULL,
     status NVARCHAR2(20),
+    attendance_date date          not null,
     CONSTRAINT fk_attend_student FOREIGN KEY (student_code) REFERENCES STUDENTS (student_code),
-    CONSTRAINT fk_attend_session FOREIGN KEY (session_id) REFERENCES SESSIONS (session_id)
+    CONSTRAINT fk_attend_session FOREIGN KEY (session_id) REFERENCES SESSIONS (session_id),
+ CONSTRAINT fk_attend_kelass FOREIGN KEY (kelass_code) REFERENCES STUDENTS (kelass_code),
+
 );

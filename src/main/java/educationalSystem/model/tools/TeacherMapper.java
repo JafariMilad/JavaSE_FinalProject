@@ -1,6 +1,7 @@
 package educationalSystem.model.tools;
 
 import educationalSystem.model.entity.Teacher;
+import educationalSystem.model.service.LessonService;
 
 import java.sql.ResultSet;
 
@@ -10,9 +11,10 @@ public class TeacherMapper {
                 .builder()
                 .id(resultSet.getInt("id"))
                 .teacherCode(resultSet.getInt("teacher_code"))
-                .userId(resultSet.getString("user_id"))
-                .lesson(resultSet.getString("lesson"))
+                .userId(resultSet.getInt("user_id"))
+                .lesson(LessonService.getService().findById(resultSet.getInt("lesson_code")))
                 .build();
+
     }
 
 }

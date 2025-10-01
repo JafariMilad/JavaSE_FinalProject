@@ -22,23 +22,23 @@ public class TeacherRepository implements Repository<Teacher, Integer>, AutoClos
         teacher.setId(ConnectionProvider.getProvider().getNextId("teacher_seq"));
 
         preparedStatement = connection.prepareStatement(
-                "insert into Teachers (id,teacher_code, user_id,lesson) values (?,?, ?,?)"
+                "insert into Teachers (id,teacher_code, user_id,lesson_code) values (?,?, ?,?)"
         );
         preparedStatement.setInt(1, teacher.getId());
         preparedStatement.setInt(2, teacher.getTeacherCode());
-        preparedStatement.setString(3, teacher.getUserId());
-        preparedStatement.setString(4, teacher.getLesson());
+        preparedStatement.setInt(3, teacher.getUserId());
+        preparedStatement.setInt(4, teacher.getLesson().getLessonCode());
         preparedStatement.execute();
     }
 
         @Override
         public void edit(Teacher teacher) throws Exception{
             preparedStatement = connection.prepareStatement(
-                    "update Teachers set teacher_code=?, user_id=?, lesson=? where id=?");
+                    "update Teachers set teacher_code=?, user_id=?, lesson_code=? where id=?");
 
             preparedStatement.setInt(1, teacher.getTeacherCode());
-            preparedStatement.setString(2, teacher.getUserId());
-            preparedStatement.setString(3, teacher.getLesson());
+            preparedStatement.setInt(2, teacher.getUserId());
+            preparedStatement.setInt(3,teacher.getLesson().getLessonCode());
             preparedStatement.execute();
         }
 
@@ -72,9 +72,9 @@ public class TeacherRepository implements Repository<Teacher, Integer>, AutoClos
         Teacher teacher = null;
 
         preparedStatement = connection.prepareStatement(
-                "select * from Teachers where id=?"
+                "select * from Teachers where lesson_code=?"
         );
-        preparedStatement.setInt(1, id);
+        preparedStatement.setInt(1,teacher.getLesson().getLessonCode());
         ResultSet resultSet = preparedStatement.executeQuery();
 
         if (resultSet.next()) {
