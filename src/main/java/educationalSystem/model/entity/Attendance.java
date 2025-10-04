@@ -17,11 +17,10 @@ public class Attendance {
 
     private int attendanceId;
     private Student student;
-    private Kelass Kelass;
+    private Celass celass;
     private Session session;
-    private String status;
     private LocalDate attendanceDate;
-
+    private Lesson lesson;
 
     @Override
     public String toString() {

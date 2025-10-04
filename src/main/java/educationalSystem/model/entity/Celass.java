@@ -2,12 +2,11 @@ package educationalSystem.model.entity;
 
 import com.google.gson.Gson;
 
-import educationalSystem.model.entity.enums.EnrollmentStatus;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
-import java.time.LocalDate;
+
 
 
 @SuperBuilder
@@ -15,20 +14,17 @@ import java.time.LocalDate;
 @Getter
 @Setter
 
-public class Enrollment {
-
-    private int enrollmentCode;
-    private EnrollmentStatus  enrollmentStatus;
+public class Celass {
+    private int classCode;
+    private Session session;
     private Lesson lesson;
-    private Teacher teacher;
+    private Enrollment enrollment;
     private Student student;
-    private Payment payment;
-    private LocalDate registerDate;
+    private Teacher teacher;
 
     @Override
     public String toString() {
         Gson gson = new Gson();
         return gson.toJson(this);
     }
-
 }

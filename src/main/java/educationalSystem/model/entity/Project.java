@@ -1,34 +1,30 @@
 package educationalSystem.model.entity;
 
 import com.google.gson.Gson;
-
-import educationalSystem.model.entity.enums.EnrollmentStatus;
+import educationalSystem.model.entity.enums.ProjectStatus;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
-import java.time.LocalDate;
 
+import java.time.LocalDate;
 
 @SuperBuilder
 @NoArgsConstructor
 @Getter
 @Setter
 
-public class Enrollment {
+public class Project {
 
-    private int enrollmentCode;
-    private EnrollmentStatus  enrollmentStatus;
+    private int projectCode;
+    private String projectTitle;
     private Lesson lesson;
-    private Teacher teacher;
     private Student student;
-    private Payment payment;
-    private LocalDate registerDate;
+    private ProjectStatus projectStatus;
 
     @Override
     public String toString() {
         Gson gson = new Gson();
         return gson.toJson(this);
     }
-
 }

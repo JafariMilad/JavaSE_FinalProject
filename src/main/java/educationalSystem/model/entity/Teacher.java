@@ -6,7 +6,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
-import java.time.LocalDate;
 
 @SuperBuilder
 @NoArgsConstructor
@@ -15,11 +14,8 @@ import java.time.LocalDate;
 
 public class Teacher {
 
-        private int id;
         private int teacherCode;
         private Lesson lesson;
-        private int userId ;
-
 
         @Override
         public String toString() {

@@ -1,7 +1,7 @@
 package educationalSystem.model.tools;
 
 import educationalSystem.model.entity.Enrollment;
-import educationalSystem.model.entity.enums.ClassStatus;
+import educationalSystem.model.entity.enums.LessonStatus;
 import educationalSystem.model.entity.enums.EnrollmentStatus;
 import educationalSystem.model.service.LessonService;
 import educationalSystem.model.service.TeacherService;
@@ -21,7 +21,7 @@ public class EnrollmentMapper {
              .student(StudentService.getService().findById(resultSet.getInt("student_id")))
              .payment(PaymentService.getService().findById(resultSet.getInt("payment_code")))
              .registerDate(resultSet.getDate("register_date").toLocalDate())
-             .classStatus(ClassStatus.valueOf(resultSet.getString("class_status")))
+             .classStatus(LessonStatus.valueOf(resultSet.getString("class_status")))
              .build();
     }
 }

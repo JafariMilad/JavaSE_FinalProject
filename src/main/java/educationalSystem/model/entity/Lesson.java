@@ -1,6 +1,8 @@
 package educationalSystem.model.entity;
 
 import com.google.gson.Gson;
+import educationalSystem.model.entity.enums.LessonStatus;
+import educationalSystem.model.entity.enums.Time;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -15,11 +17,16 @@ import java.time.LocalDate;
 
 public class Lesson {
     private int lessonCode;
-    private int classCode;
     private String lessonName;
-    private String lessonStatus;
-    private LocalDate lessonDate;
-    private int lessonTeacher;
+    private LessonStatus lessonStatus;
+    private LocalDate startDate;
+    private LocalDate endDate;
+    private int price;
+    private Time time;
+    private Teacher teacher;
+    private Student student;
+    private Celass celass;
+
 
     @Override
     public String toString() {

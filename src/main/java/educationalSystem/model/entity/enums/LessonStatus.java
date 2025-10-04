@@ -1,6 +1,6 @@
 package educationalSystem.model.entity.enums;
 
-public enum ClassStatus {
+public enum LessonStatus {
     Online,
     Offline,
 }
