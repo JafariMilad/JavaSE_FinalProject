@@ -1,6 +1,7 @@
 package educationalSystem.model.tools;
 
 import educationalSystem.model.entity.Attendance;
+import educationalSystem.model.entity.enums.AttendanceStatus;
 import educationalSystem.model.service.LessonService;
 
 import java.sql.ResultSet;
@@ -12,14 +13,14 @@ public class AttendanceMapper {
     public Attendance attendanceMapper(ResultSet resultSet) throws Exception {
         return Attendance
                 .builder()
-                .attendanceId(resultSet.getInt("attendance_id"))
+                .attendanceId(resultSet.getInt("attendance_code"))
                 .student(StudentService.getService().findById(resultSet.getInt("student_code")))
-                .Kelass(KelassService.getService().findById(resultSet.getInt("kelass_code")))
-                .session(SessionService.getService().findById(resultSet.getInt("session_id")))
-                .status(resultSet.getString("status"))
+                .attendanceStatus(AttendanceStatus.valueOf(resultSet.getString("attendance_status")))
+                .celass(CelassService.getService().findById(resultSet.getInt("celass_code")))
+                .session(SessionService.getService().findById(resultSet.getInt("session_Code")))
                 .attendanceDate(resultSet.getDate("attendance_date").toLocalDate())
+                .lesson(LessonService.getService().findById(resultSet.getInt("lesson_code")))
                 .build();
-
     }
 }
 

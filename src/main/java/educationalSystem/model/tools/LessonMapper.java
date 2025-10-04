@@ -1,6 +1,9 @@
 package educationalSystem.model.tools;
 
 import educationalSystem.model.entity.Lesson;
+import educationalSystem.model.entity.enums.LessonStatus;
+import educationalSystem.model.entity.enums.Time;
+import educationalSystem.model.service.TeacherService;
 
 import java.sql.ResultSet;
 
@@ -9,11 +12,15 @@ public class LessonMapper {
         return Lesson
                 .builder()
                 .lessonCode(resultSet.getInt("lesson_code"))
-                .classCode(resultSet.getInt("class_code"))
                 .lessonName(resultSet.getString("lesson_name"))
-                .lessonStatus(resultSet.getString("lesson_status"))
-                .lessonDate(resultSet.getDate("lesson_date").toLocalDate())
-                .lessonTeacher(resultSet.getInt("lesson_teacher"))
+                .lessonStatus(LessonStatus.valueOf(resultSet.getString("lesson_status")))
+                .startDate(resultSet.getDate("lesson_date").toLocalDate())
+                .endDate(resultSet.getDate("lesson_date").toLocalDate())
+                .price(resultSet.getInt("lesson_price"))
+                .time(Time.valueOf(resultSet.getString("lesson_time")))
+                .teacher(TeacherService.getService().findById(resultSet.getInt("teacher_code")))
+                .student(StudentService.getService().findById(resultSet.getInt("student_code")))
+                .celass(CelassService.getService().findById(resultSet.getInt("celass_code")))
                 .build();
     }
 }
