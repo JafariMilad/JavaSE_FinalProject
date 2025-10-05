@@ -31,9 +31,9 @@ public class LessonService implements Service<Lesson, Integer> {
     }
 
     @Override
-    public void delete(Integer id) throws Exception {
+    public void delete(Integer lessonCode) throws Exception {
         try (LessonRepository lessonRepository = new LessonRepository()) {
-            lessonRepository.delete(id);
+            lessonRepository.delete(lessonCode);
         }
 
     }
@@ -46,9 +46,9 @@ public class LessonService implements Service<Lesson, Integer> {
     }
 
     @Override
-    public Lesson findById(Integer id) throws Exception {
+    public Lesson findById(Integer lessonCode) throws Exception {
         try (LessonRepository lessonRepository = new LessonRepository()) {
-            return lessonRepository.findById(id);
+            return lessonRepository.findById(lessonCode);
         }
     }
 }

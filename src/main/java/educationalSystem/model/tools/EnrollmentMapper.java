@@ -4,6 +4,8 @@ import educationalSystem.model.entity.Enrollment;
 import educationalSystem.model.entity.enums.EnrollmentStatus;
 import educationalSystem.model.service.LessonService;
 import educationalSystem.model.service.TeacherService;
+import educationalSystem.model.service.StudentService;
+
 
 import java.sql.ResultSet;
 
