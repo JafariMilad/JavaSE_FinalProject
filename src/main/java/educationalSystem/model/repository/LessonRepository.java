@@ -49,6 +49,7 @@ public class LessonRepository implements Repository<Lesson, Integer>, AutoClosea
         preparedStatement.setString(2, lesson.getLessonStatus().name());
         preparedStatement.setString(3, lesson.getTime().name());
         preparedStatement.setInt(4, lesson.getTeacher().getTeacherCode());
+        preparedStatement.setInt(5, lesson.getLessonCode());
         preparedStatement.execute();
     }
 

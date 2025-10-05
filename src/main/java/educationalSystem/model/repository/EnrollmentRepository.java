@@ -43,6 +43,7 @@ public class EnrollmentRepository implements Repository<Enrollment, Integer>, Au
         preparedStatement.setString(1, enrollment.getEnrollmentStatus().name());
         preparedStatement.setInt(2, enrollment.getStudent().getStudentCode());
         preparedStatement.setInt(3, enrollment.getPayment().getPaymentCode());
+        preparedStatement.setInt(4, enrollment.getEnrollmentCode());
         preparedStatement.execute();
     }
 

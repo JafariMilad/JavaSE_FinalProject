@@ -19,35 +19,32 @@ public class TeacherRepository implements Repository<Teacher, Integer>, AutoClos
 
     @Override
     public void save(Teacher teacher) throws Exception {
-        teacher.setId(ConnectionProvider.getProvider().getNextId("teacher_seq"));
+        teacher.setTeacherCode(ConnectionProvider.getProvider().getNextId("teacher_seq"));
 
         preparedStatement = connection.prepareStatement(
-                "insert into Teachers (id,teacher_code, user_id,lesson_code) values (?,?, ?,?)"
+                "insert into Teachers (teacher_code,lesson_code) values (?,?)"
         );
-        preparedStatement.setInt(1, teacher.getId());
-        preparedStatement.setInt(2, teacher.getTeacherCode());
-        preparedStatement.setInt(3, teacher.getUserId());
-        preparedStatement.setInt(4, teacher.getLesson().getLessonCode());
+        preparedStatement.setInt(1, teacher.getTeacherCode());
+        preparedStatement.setInt(2, teacher.getLesson().getLessonCode());
         preparedStatement.execute();
     }
 
-        @Override
-        public void edit(Teacher teacher) throws Exception{
-            preparedStatement = connection.prepareStatement(
-                    "update Teachers set teacher_code=?, user_id=?, lesson_code=? where id=?");
+    @Override
+    public void edit(Teacher teacher) throws Exception {
+        preparedStatement = connection.prepareStatement(
+                "update Teachers set lesson_code=? where teacher_code=?");
 
-            preparedStatement.setInt(1, teacher.getTeacherCode());
-            preparedStatement.setInt(2, teacher.getUserId());
-            preparedStatement.setInt(3,teacher.getLesson().getLessonCode());
-            preparedStatement.execute();
-        }
+        preparedStatement.setInt(1, teacher.getLesson().getLessonCode());
+        preparedStatement.setInt(2, teacher.getTeacherCode());
+        preparedStatement.execute();
+    }
 
     @Override
-    public void delete(Integer id) throws Exception {
+    public void delete(Integer teacherCode) throws Exception {
         preparedStatement = connection.prepareStatement(
-                "delete from Teachers where id=?"
+                "delete from Teachers where teacher_code=?"
         );
-        preparedStatement.setInt(1, id);
+        preparedStatement.setInt(1, teacherCode);
         preparedStatement.execute();
     }
 
@@ -56,7 +53,7 @@ public class TeacherRepository implements Repository<Teacher, Integer>, AutoClos
         List<Teacher> teacherList = new ArrayList<>();
 
         preparedStatement = connection.prepareStatement(
-                "select * from Teachers order by id, teacher_code"
+                "select * from Teachers order by teacher_code"
         );
         ResultSet resultSet = preparedStatement.executeQuery();
 
@@ -68,13 +65,13 @@ public class TeacherRepository implements Repository<Teacher, Integer>, AutoClos
     }
 
     @Override
-    public Teacher findById(Integer id) throws Exception {
+    public Teacher findById(Integer lessonCode) throws Exception {
         Teacher teacher = null;
 
         preparedStatement = connection.prepareStatement(
                 "select * from Teachers where lesson_code=?"
         );
-        preparedStatement.setInt(1,teacher.getLesson().getLessonCode());
+        preparedStatement.setInt(1, teacher.getLesson().getLessonCode());
         ResultSet resultSet = preparedStatement.executeQuery();
 
         if (resultSet.next()) {
@@ -82,18 +79,10 @@ public class TeacherRepository implements Repository<Teacher, Integer>, AutoClos
         }
         return teacher;
     }
-    public int getNextId() throws Exception {
-        ResultSet resultSet = connection.prepareStatement("SELECT teacher_seq.nextval AS NEXTID FROM DUAL").executeQuery();
-        resultSet.next();
-        return resultSet.getInt("NEXTID");
-    }
-
 
     @Override
     public void close() throws Exception {
         preparedStatement.close();
         connection.close();
     }
-    }
-
-
+}

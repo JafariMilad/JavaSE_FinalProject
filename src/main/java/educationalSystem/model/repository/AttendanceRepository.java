@@ -1,7 +1,6 @@
 package educationalSystem.model.repository;
 
 import educationalSystem.model.entity.Attendance;
-import educationalSystem.model.entity.Teacher;
 import educationalSystem.model.tools.AttendanceMapper;
 import educationalSystem.model.tools.ConnectionProvider;
 
@@ -22,40 +21,42 @@ public class AttendanceRepository implements Repository<Attendance, Integer>, Au
 
     @Override
     public void save(Attendance attendance) throws Exception {
-        attendance.setAttendanceId(ConnectionProvider.getProvider().getNextId("attendance_seq"));
+        attendance.setAttendanceCode(ConnectionProvider.getProvider().getNextId("attendance_seq"));
 
         preparedStatement = connection.prepareStatement(
-                "insert into ATTENDANCE (attendance_id,student_code, session_id,kelass_code,status,attendance_date) values (?,?,?,?,?,?)"
+                "insert into ATTENDANCES (attendance_code,student_code, attendance_status,celass_code,session_Code,attendance_date, lesson_code) " +
+                        "values (?, ?, ?, ?, ?, ?, ?)"
         );
-        preparedStatement.setInt(1, attendance.getAttendanceId());
-        preparedStatement.setInt(2, attendance.getStudent().getstudentCode());
-        preparedStatement.setInt(3, attendance.getSession().getsessionId());
-        preparedStatement.setInt(4, attendance.getKelass().getkelassCode());
-        preparedStatement.setString(4, attendance.getStatus());
-        preparedStatement.setDate(4, Date.valueOf(attendance.getAttendanceDate()));
+        preparedStatement.setInt(1, attendance.getAttendanceCode());
+        preparedStatement.setInt(2, attendance.getStudent().getStudentCode());
+        preparedStatement.setString(3,attendance.getAttendanceStatus().name());
+        preparedStatement.setInt(4,attendance.getCelass().getClassCode());
+        preparedStatement.setInt(5,attendance.getSession().getSessionCode());
+        preparedStatement.setDate(6, Date.valueOf(attendance.getAttendanceDate()));
+        preparedStatement.setInt(7, attendance.getLesson().getLessonCode());
         preparedStatement.execute();
     }
 
     @Override
     public void edit(Attendance attendance) throws Exception{
         preparedStatement = connection.prepareStatement(
-                "update ATTENDANCE set student_code=?, session_id=?, kelass_code=? ,status=?,attendance_date=? where attendance_id=?");
+                "update ATTENDANCES set student_code=?, session_code=? ,attendance_status=?,attendance_date=? where attendance_code=?");
 
 
-        preparedStatement.setInt(1, attendance.getStudent().getstudentCode());
-        preparedStatement.setInt(2, attendance.getSession().getsessionId());
-        preparedStatement.setInt(3, attendance.getKelass().getkelassCode());
-        preparedStatement.setString(4, attendance.getStatus());
-        preparedStatement.setDate(5, Date.valueOf(attendance.getAttendanceDate()));
+        preparedStatement.setInt(1, attendance.getStudent().getStudentCode());
+        preparedStatement.setInt(2, attendance.getSession().getSessionCode());
+        preparedStatement.setString(3, attendance.getAttendanceStatus().name());
+        preparedStatement.setDate(4, Date.valueOf(attendance.getAttendanceDate()));
+        preparedStatement.setInt(5, attendance.getAttendanceCode());
         preparedStatement.execute();
     }
 
     @Override
-    public void delete(Integer attendance_id) throws Exception {
+    public void delete(Integer attendanceCode) throws Exception {
         preparedStatement = connection.prepareStatement(
-                "delete from ATTENDANCE where attendance_id=?"
+                "delete from ATTENDANCES where attendance_code=?"
         );
-        preparedStatement.setInt(1, attendance_id);
+        preparedStatement.setInt(1, attendanceCode);
         preparedStatement.execute();
     }
 
@@ -64,7 +65,7 @@ public class AttendanceRepository implements Repository<Attendance, Integer>, Au
         List<Attendance> attendanceList = new ArrayList<>();
 
         preparedStatement = connection.prepareStatement(
-                "select * from ATTENDANCE order by attendance_id, student_code"
+                "select * from ATTENDANCES order by attendance_code, student_code"
         );
         ResultSet resultSet = preparedStatement.executeQuery();
 
@@ -76,13 +77,13 @@ public class AttendanceRepository implements Repository<Attendance, Integer>, Au
     }
 
     @Override
-    public Attendance findById(Integer attendance_id) throws Exception {
+    public Attendance findById(Integer attendanceCode) throws Exception {
         Attendance attendance = null;
 
         preparedStatement = connection.prepareStatement(
-                "select * from ATTENDANCE where attendance_id=?"
+                "select * from ATTENDANCES where attendance_code=?"
         );
-        preparedStatement.setInt(1,attendance.getAttendanceId());
+        preparedStatement.setInt(1,attendance.getAttendanceCode());
         ResultSet resultSet = preparedStatement.executeQuery();
 
         if (resultSet.next()) {
@@ -90,12 +91,6 @@ public class AttendanceRepository implements Repository<Attendance, Integer>, Au
         }
         return attendance;
     }
-    public int getNextId() throws Exception {
-        ResultSet resultSet = connection.prepareStatement("SELECT attendance_seq.nextval AS NEXTID FROM DUAL").executeQuery();
-        resultSet.next();
-        return resultSet.getInt("NEXTID");
-    }
-
 
     @Override
     public void close() throws Exception {
