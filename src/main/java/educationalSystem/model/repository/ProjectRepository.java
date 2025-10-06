@@ -1,6 +1,5 @@
 package educationalSystem.model.repository;
 
-import educationalSystem.model.entity.Attendance;
 import educationalSystem.model.entity.Project;
 import educationalSystem.model.tools.ConnectionProvider;
 import educationalSystem.model.tools.ProjectMapper;
@@ -24,7 +23,7 @@ public class ProjectRepository implements Repository<Project, Integer>, AutoClos
         project.setProjectCode(ConnectionProvider.getProvider().getNextId("project_seq"));
 
         preparedStatement = connection.prepareStatement(
-                "insert into PROJECT (project_code,project_title,student_code, lesson_code,session_Code, status) " +
+                "insert into PROJECTS (project_code,project_title,student_code, lesson_code,session_Code, status) " +
                         "values (?, ?, ?, ?, ?, ?)"
         );
         preparedStatement.setInt(1, project.getProjectCode());
@@ -39,7 +38,7 @@ public class ProjectRepository implements Repository<Project, Integer>, AutoClos
     @Override
     public void edit(Project project) throws Exception{
         preparedStatement = connection.prepareStatement(
-                "update PROJECT set student_code=?, session_code=? ,attendance_status=?,attendance_date=? where attendance_code=?");
+                "update PROJECTS set student_code=?, session_code=? ,attendance_status=?,attendance_date=? where attendance_code=?");
 
 
         preparedStatement.setInt(1, project.getProjectCode());
@@ -54,7 +53,7 @@ public class ProjectRepository implements Repository<Project, Integer>, AutoClos
     @Override
     public void delete(Integer projectCode) throws Exception {
         preparedStatement = connection.prepareStatement(
-                "delete from PROJECT where project_code=?"
+                "delete from PROJECTS where project_code=?"
         );
         preparedStatement.setInt(1, projectCode);
         preparedStatement.execute();
@@ -65,7 +64,7 @@ public class ProjectRepository implements Repository<Project, Integer>, AutoClos
         List<Project> projectList = new ArrayList<>();
 
         preparedStatement = connection.prepareStatement(
-                "select * from PROJECT order by project_code, student_code"
+                "select * from PROJECTS order by project_code, student_code"
         );
         ResultSet resultSet = preparedStatement.executeQuery();
 
@@ -81,7 +80,7 @@ public class ProjectRepository implements Repository<Project, Integer>, AutoClos
         Project project = null;
 
         preparedStatement = connection.prepareStatement(
-                "select * from PROJECT where project_code=?"
+                "select * from PROJECTS where project_code=?"
         );
         preparedStatement.setInt(1,project.getProjectCode());
         ResultSet resultSet = preparedStatement.executeQuery();

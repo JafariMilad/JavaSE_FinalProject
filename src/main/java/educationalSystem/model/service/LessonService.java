@@ -4,7 +4,6 @@ import educationalSystem.model.entity.Lesson;
 import educationalSystem.model.repository.LessonRepository;
 import lombok.Getter;
 
-import java.util.Collections;
 import java.util.List;
 
 public class LessonService implements Service<Lesson, Integer> {

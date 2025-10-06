@@ -3,9 +3,7 @@ package educationalSystem.model.tools;
 import educationalSystem.model.entity.Lesson;
 import educationalSystem.model.entity.enums.LessonStatus;
 import educationalSystem.model.entity.enums.Time;
-import educationalSystem.model.service.TeacherService;
-import educationalSystem.model.service.CelassService
-import educationalSystem.model.service.StudentService
+import educationalSystem.model.service.*;
 import java.sql.ResultSet;
 
 public class LessonMapper {

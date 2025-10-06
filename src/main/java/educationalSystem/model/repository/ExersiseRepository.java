@@ -23,7 +23,7 @@ public class ExersiseRepository implements Repository<Exersise, Integer>, AutoCl
         exersise.setExersiseCode(ConnectionProvider.getProvider().getNextId("exercise_seq"));
 
         preparedStatement = connection.prepareStatement(
-                "insert into Exersise (exersise_code,exersise_date, student_code,lesson_code,session_code) " +
+                "insert into Exersises (exersise_code,exersise_date, student_code,lesson_code,session_code) " +
                         "values (?, ?, ?, ?, ?)"
         );
         preparedStatement.setInt(1, exersise.getExersiseCode());
@@ -37,7 +37,7 @@ public class ExersiseRepository implements Repository<Exersise, Integer>, AutoCl
     @Override
     public void edit(Exersise exersise) throws Exception{
         preparedStatement = connection.prepareStatement(
-                "update Exersise set exersise_date=?, student_code=? ,lesson_code=?,session_code=? where exersise_code=?");
+                "update Exersises set exersise_date=?, student_code=? ,lesson_code=?,session_code=? where exersise_code=?");
 
 
         preparedStatement.setDate(1, Date.valueOf(exersise.getExersiseDate()));
@@ -50,7 +50,7 @@ public class ExersiseRepository implements Repository<Exersise, Integer>, AutoCl
     @Override
     public void delete(Integer exersiseCode) throws Exception {
         preparedStatement = connection.prepareStatement(
-                "delete from Exersise where exersise_code=?"
+                "delete from Exersises where exersise_code=?"
         );
         preparedStatement.setInt(1, exersiseCode);
         preparedStatement.execute();
@@ -61,7 +61,7 @@ public class ExersiseRepository implements Repository<Exersise, Integer>, AutoCl
         List<Exersise> exersiseList = new ArrayList<>();
 
         preparedStatement = connection.prepareStatement(
-                "select * from Exersise order by exersise_code, student_code"
+                "select * from Exersises order by exersise_code, student_code"
         );
         ResultSet resultSet = preparedStatement.executeQuery();
 
@@ -77,7 +77,7 @@ public class ExersiseRepository implements Repository<Exersise, Integer>, AutoCl
         Exersise exersise = null;
 
         preparedStatement = connection.prepareStatement(
-                "select * from Exersise where exersise_code=?"
+                "select * from Exersises where exersise_code=?"
         );
         preparedStatement.setInt(1,exersise.getExersiseCode());
         ResultSet resultSet = preparedStatement.executeQuery();

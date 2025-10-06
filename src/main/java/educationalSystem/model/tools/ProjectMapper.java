@@ -2,9 +2,7 @@ package educationalSystem.model.tools;
 
 import educationalSystem.model.entity.Project;
 import educationalSystem.model.entity.enums.ProjectStatus;
-import educationalSystem.model.service.LessonService;
-import educationalSystem.model.service.SessionService;
-import educationalSystem.model.service.StudentService;
+import educationalSystem.model.service.*;
 
 import java.sql.ResultSet;
 

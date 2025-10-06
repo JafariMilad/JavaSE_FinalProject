@@ -58,7 +58,7 @@ public class EnrollmentRepository implements Repository<Enrollment, Integer>, Au
 
     @Override
     public List<Enrollment> findAll() throws Exception {
-        List<Enrollment> enrollmentsList = new ArrayList<>();
+        List<Enrollment> enrollmentList = new ArrayList<>();
         preparedStatement = connection.prepareStatement(
               "select * from Enrollments order by payment_code, enrollment_status "
         );
@@ -66,9 +66,9 @@ public class EnrollmentRepository implements Repository<Enrollment, Integer>, Au
 
         while (resultSet.next()) {
             Enrollment enrollment = enrollmentMapper.enrollmentMapper(resultSet);
-            enrollmentsList.add(enrollment);
+            enrollmentList.add(enrollment);
         }
-        return enrollmentsList;
+        return enrollmentList;
     }
 
     @Override

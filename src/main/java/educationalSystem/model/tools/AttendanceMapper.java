@@ -2,15 +2,9 @@ package educationalSystem.model.tools;
 
 import educationalSystem.model.entity.Attendance;
 import educationalSystem.model.entity.enums.AttendanceStatus;
-import educationalSystem.model.service.LessonService;
-import educationalSystem.model.service.StudentService;
-import educationalSystem.model.service.CelassService;
-import educationalSystem.model.service.SessionService;
+import educationalSystem.model.service.*;
 
 import java.sql.ResultSet;
-import java.time.LocalDate;
-
-import static educationalSystem.model.entity.Teacher.*;
 
 public class AttendanceMapper {
     public Attendance attendanceMapper(ResultSet resultSet) throws Exception {
