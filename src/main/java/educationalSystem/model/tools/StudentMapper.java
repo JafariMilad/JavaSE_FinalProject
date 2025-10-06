@@ -22,6 +22,4 @@ public class StudentMapper {
                 .lesson(LessonService.getService().findById(resultSet.getInt("lesson_code")))
                 .build();
     }
-
-
 }

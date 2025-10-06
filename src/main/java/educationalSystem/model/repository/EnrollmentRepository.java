@@ -22,7 +22,7 @@ public class EnrollmentRepository implements Repository<Enrollment, Integer>, Au
         enrollment.setEnrollmentCode(ConnectionProvider.getProvider().getNextId("enrollment_seq"));
 
         preparedStatement = connection.prepareStatement(
-                "insert into Enrollment (enrollment_code, enrollment_status, lesson_code, teacher_code, student_code, payment_code, register_date )"+
+                "insert into Enrollments (enrollment_code, enrollment_status, lesson_code, teacher_code, student_code, payment_code, register_date )"+
                         "values (?, ?, ?, ?, ?, ?, ?)"
         );
         preparedStatement.setInt(1, enrollment.getEnrollmentCode());
@@ -38,7 +38,7 @@ public class EnrollmentRepository implements Repository<Enrollment, Integer>, Au
     @Override
     public void edit(Enrollment enrollment) throws Exception {
         preparedStatement = connection.prepareStatement(
-          "update Enrollment set enrollment_status=?, student_code=?, payment_code=? where enrollment_code=?"
+          "update Enrollments set enrollment_status=?, student_code=?, payment_code=? where enrollment_code=?"
         );
         preparedStatement.setString(1, enrollment.getEnrollmentStatus().name());
         preparedStatement.setInt(2, enrollment.getStudent().getStudentCode());
@@ -50,7 +50,7 @@ public class EnrollmentRepository implements Repository<Enrollment, Integer>, Au
     @Override
     public void delete(Integer enrollmentCode) throws Exception {
         preparedStatement = connection.prepareStatement(
-                "delete from Enrollment where enrollment_code=?"
+                "delete from Enrollments where enrollment_code=?"
         );
         preparedStatement.setInt(1, enrollmentCode);
         preparedStatement.execute();
@@ -60,7 +60,7 @@ public class EnrollmentRepository implements Repository<Enrollment, Integer>, Au
     public List<Enrollment> findAll() throws Exception {
         List<Enrollment> enrollmentsList = new ArrayList<>();
         preparedStatement = connection.prepareStatement(
-              "select * from Enrollment order by payment_code, enrollment_status "
+              "select * from Enrollments order by payment_code, enrollment_status "
         );
         ResultSet resultSet = preparedStatement.executeQuery();
 
@@ -76,7 +76,7 @@ public class EnrollmentRepository implements Repository<Enrollment, Integer>, Au
         Enrollment enrollment = null;
 
         preparedStatement = connection.prepareStatement(
-                "select * from Enrollment where enrollment_code=?"
+                "select * from Enrollments where enrollment_code=?"
         );
         preparedStatement.setInt(1, enrollmentCode);
         ResultSet resultSet = preparedStatement.executeQuery();
