@@ -8,13 +8,14 @@ import java.sql.ResultSet;
 
 public class ProjectMapper {
     public Project projectMapper(ResultSet resultSet) throws Exception {
-        return  Project
+        return Project
                 .builder()
                 .projectCode(resultSet.getInt("project_code"))
                 .projectTitle(resultSet.getString("project_title"))
                 .student(StudentService.getService().findById(resultSet.getInt("student_code")))
                 .lesson(LessonService.getService().findById(resultSet.getInt("lesson_code")))
-                .session(SessionService.getService().findBy(resultSet.getInt("session_code")))
+                .session(SessionService.getService().findById(resultSet.getInt("session_code")))
                 .status(ProjectStatus.valueOf(resultSet.getString("status")))
                 .build();
+    }
 }

@@ -4,7 +4,6 @@ import educationalSystem.model.entity.Enrollment;
 import educationalSystem.model.entity.enums.EnrollmentStatus;
 import educationalSystem.model.service.*;
 
-
 import java.sql.ResultSet;
 
 public class EnrollmentMapper {
