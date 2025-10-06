@@ -20,7 +20,8 @@ public class Project {
     private String projectTitle;
     private Lesson lesson;
     private Student student;
-    private ProjectStatus projectStatus;
+    private Session session;
+    private ProjectStatus status;
 
     @Override
     public String toString() {

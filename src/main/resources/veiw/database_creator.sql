@@ -67,7 +67,7 @@ CREATE TABLE Lessons
 );
 
 CREATE SEQUENCE session_seq START WITH 1 INCREMENT BY 1;
-CREATE TABLE SESSIONS
+CREATE TABLE SESSION
 (
     session_id NUMBER PRIMARY KEY,
     class_code NUMBER NOT NULL,
@@ -147,16 +147,28 @@ CREATE TABLE REPORT
 CREATE SEQUENCE project_seq START WITH 1 INCREMENT BY 1;
 CREATE TABLE PROJECT
 (
-    project_id NUMBER PRIMARY KEY,
+    project_code NUMBER PRIMARY KEY,
+    project_title nvarchar2(100),
     student_code NUMBER NOT NULL,
-    class_code NUMBER NOT NULL,
     lesson_code NUMBER NOT NULL,
-    session_id NUMBER,
-    grade NUMBER(3,1),
+    session_code NUMBER NOT NULL,
+    status  nvarchar2(20),
     CONSTRAINT fk_project_student FOREIGN KEY (student_code) REFERENCES STUDENTS (student_code),
-    CONSTRAINT fk_project_course FOREIGN KEY (class_code) REFERENCES COURSES (class_code),
     CONSTRAINT fk_project_lesson FOREIGN KEY (lesson_code) REFERENCES LESSONS (lesson_code),
-    CONSTRAINT fk_project_session FOREIGN KEY (session_id) REFERENCES SESSIONS (session_id)
+    CONSTRAINT fk_project_session FOREIGN KEY (session_code) REFERENCES SESSION (session_code)
+);
+
+CREATE SEQUENCE Exersise_seq START WITH 1 INCREMENT BY 1;
+CREATE TABLE Exersise
+(
+    exersise_code NUMBER PRIMARY KEY,
+    exersise_date DATE,
+    student_code NUMBER NOT NULL,
+    lesson_code NUMBER NOT NULL,
+    session_code NUMBER NOT NULL,
+    CONSTRAINT fk_Exersise_student FOREIGN KEY (student_code) REFERENCES STUDENTS (student_code),
+    CONSTRAINT fk_Exersise_lesson FOREIGN KEY (lesson_code) REFERENCES LESSONS (lesson_code),
+    CONSTRAINT fk_Exersise_session FOREIGN KEY (session_code) REFERENCES SESSION (session_code)
 );
 
 CREATE SEQUENCE grade_seq START WITH 1 INCREMENT BY 1;
