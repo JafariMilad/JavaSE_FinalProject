@@ -1,7 +1,7 @@
 
 
 CREATE SEQUENCE user_seq START WITH 1 INCREMENT BY 1;
-CREATE TABLE USERS
+CREATE TABLE Users
 (
     id NUMBER PRIMARY KEY,
     username NVARCHAR2(50) UNIQUE NOT NULL,
@@ -31,15 +31,6 @@ CREATE TABLE STUDENTS
     student_code NUMBER PRIMARY KEY,
     user_id NUMBER UNIQUE NOT NULL,
     CONSTRAINT fk_student_user FOREIGN KEY (user_id) REFERENCES USERS (id)
-);
-
-CREATE SEQUENCE employee_seq START WITH 1 INCREMENT BY 1;
-CREATE TABLE EMPLOYEES
-(
-    employee_code NUMBER PRIMARY KEY,
-    user_id NUMBER UNIQUE NOT NULL,
-    role NVARCHAR2(50),
-    CONSTRAINT fk_employee_user FOREIGN KEY (user_id) REFERENCES USERS (id)
 );
 
 CREATE SEQUENCE course_seq START WITH 1 INCREMENT BY 1;
@@ -94,7 +85,7 @@ CREATE TABLE ENROLLMENT
 );
 
 CREATE SEQUENCE payment_seq START WITH 1 INCREMENT BY 1;
-CREATE TABLE PAYMENT
+CREATE TABLE Payments
 (
     payment_id NUMBER PRIMARY KEY,
     payment_type NVARCHAR2(20),
@@ -106,33 +97,8 @@ CREATE TABLE PAYMENT
     CONSTRAINT fk_payment_user FOREIGN KEY (user_id) REFERENCES USERS (id)
 );
 
-CREATE SEQUENCE ticket_seq START WITH 1 INCREMENT BY 1;
-CREATE TABLE TICKET
-(
-    ticket_id NUMBER PRIMARY KEY,
-    ticket_time DATE,
-    ticket_status NVARCHAR2(20),
-    user_id NUMBER NOT NULL,
-    employee_code NUMBER,
-    payment_id NUMBER,
-    CONSTRAINT fk_ticket_user FOREIGN KEY (user_id) REFERENCES USERS (id),
-    CONSTRAINT fk_ticket_employee FOREIGN KEY (employee_code) REFERENCES EMPLOYEES (employee_code),
-    CONSTRAINT fk_ticket_payment FOREIGN KEY (payment_id) REFERENCES PAYMENT (payment_id)
-);
-
-CREATE SEQUENCE message_seq START WITH 1 INCREMENT BY 1;
-CREATE TABLE MESSAGE
-(
-    message_id NUMBER PRIMARY KEY,
-    message_text NVARCHAR2(500) NOT NULL,
-    user_id NUMBER NOT NULL,
-    ticket_id NUMBER NOT NULL,
-    CONSTRAINT fk_message_user FOREIGN KEY (user_id) REFERENCES USERS (id),
-    CONSTRAINT fk_message_ticket FOREIGN KEY (ticket_id) REFERENCES TICKET (ticket_id)
-);
-
 CREATE SEQUENCE report_seq START WITH 1 INCREMENT BY 1;
-CREATE TABLE REPORT
+CREATE TABLE Reports
 (
     report_id NUMBER PRIMARY KEY,
     report_date DATE,
