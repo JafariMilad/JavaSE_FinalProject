@@ -26,7 +26,6 @@ public class LessonService implements Service<Lesson, Integer> {
         try (LessonRepository lessonRepository = new LessonRepository()) {
             lessonRepository.edit(lesson);
         }
-
     }
 
     @Override
@@ -34,7 +33,6 @@ public class LessonService implements Service<Lesson, Integer> {
         try (LessonRepository lessonRepository = new LessonRepository()) {
             lessonRepository.delete(lessonCode);
         }
-
     }
 
     @Override
