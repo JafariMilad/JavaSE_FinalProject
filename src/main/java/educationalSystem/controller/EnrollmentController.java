@@ -1,5 +1,6 @@
 package educationalSystem.controller;
 
+import educationalSystem.model.service.EnrollmentService;
 import educationalSystem.model.service.LessonService;
 import educationalSystem.model.service.PaymentService;
 import javafx.collections.FXCollections;
@@ -11,7 +12,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import lombok.extern.log4j.Log4j2;
 import educationalSystem.model.entity.Enrollment;
 import educationalSystem.model.entity.enums.EnrollmentStatus;
-import educationalSystem.model.service.EnrollmentService;
 
 import java.net.URL;
 import java.time.LocalDate;
@@ -89,13 +89,13 @@ public class EnrollmentController implements Initializable {
                                 .payment(PaymentService.getService().findById(Integer.parseInt(paymentCodeText.getText())))
                                 .build();
                 EnrollmentService.getService().edit(enrollment);
-                log.info("Successfully Saved Enrollment");
+                log.info("Successfully Edited Enrollment");
                 Alert alert = new Alert(Alert.AlertType.INFORMATION, "Edited Successfully\n" + enrollment, ButtonType.OK);
                 alert.show();
                 resetForm();
             } catch (Exception e) {
-                log.error("Error Saving Data", e.getMessage());
-                Alert alert = new Alert(Alert.AlertType.ERROR, "Error Saving Data !!!" + e.getMessage(), ButtonType.OK);
+                log.error("Error Editing Data", e.getMessage());
+                Alert alert = new Alert(Alert.AlertType.ERROR, "Error Editing Data !!!" + e.getMessage(), ButtonType.OK);
                 alert.show();
             }
         });
